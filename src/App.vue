@@ -23,6 +23,10 @@ const copyToClipboard = async () => {
   }
 }
 
+const clearInput = () => {
+  input.value = ''
+}
+
 const toggleTheme = () => {
   isDark.value = !isDark.value
   document.documentElement.setAttribute('data-theme', isDark.value ? 'dark' : 'light')
@@ -78,6 +82,18 @@ onMounted(() => {
           class="textarea output"
         ></textarea>
       </section>
+      
+      <div class="clear-section">
+        <button 
+          @click="clearInput" 
+          :disabled="!input"
+          class="clear-btn"
+          aria-label="Clear input field"
+          title="Clear input field"
+        >
+          Clear Input
+        </button>
+      </div>
     </main>
     
     <footer class="footer" role="contentinfo">
@@ -240,6 +256,34 @@ onMounted(() => {
   background: var(--accent-color);
   color: white;
   transform: translateY(-1px);
+}
+
+.clear-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.clear-btn {
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  color: var(--text-color);
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.clear-btn:hover:not(:disabled) {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  transform: translateY(-1px);
+}
+
+.clear-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 @media (min-width: 768px) {
