@@ -81,6 +81,15 @@ onMounted(() => {
           placeholder="Obfuscated output will appear here"
           class="textarea output"
         ></textarea>
+        <button 
+          @click="copyToClipboard" 
+          :disabled="!output"
+          class="copy-btn secondary"
+          :class="{ copied }"
+          aria-label="Copy obfuscated output"
+        >
+          {{ copied ? 'Copied!' : 'Copy Output' }}
+        </button>
       </section>
       
       <div class="clear-section">
@@ -284,6 +293,11 @@ onMounted(() => {
 .clear-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.copy-btn.secondary {
+  width: 100%;
+  margin-top: 0.5rem;
 }
 
 @media (min-width: 768px) {
