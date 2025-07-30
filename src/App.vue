@@ -53,13 +53,31 @@ onMounted(() => {
     
     <main class="main" role="main">
       <section class="input-section">
-        <label for="input" class="label">Input</label>
+        <div class="input-header">
+          <label for="input" class="label">Input</label>
+          <button 
+            @click="clearInput" 
+            :disabled="!input"
+            class="clear-btn header"
+            aria-label="Clear input field"
+          >
+            Clear Input
+          </button>
+        </div>
         <textarea 
           id="input"
           v-model="input" 
           placeholder="Enter emails or URLs (e.g., user@example.com, www.example.com)"
           class="textarea"
         ></textarea>
+        <button 
+          @click="clearInput" 
+          :disabled="!input"
+          class="clear-btn secondary"
+          aria-label="Clear input field"
+        >
+          Clear Input
+        </button>
       </section>
       
       <section class="output-section">
@@ -92,17 +110,7 @@ onMounted(() => {
         </button>
       </section>
       
-      <div class="clear-section">
-        <button 
-          @click="clearInput" 
-          :disabled="!input"
-          class="clear-btn"
-          aria-label="Clear input field"
-          title="Clear input field"
-        >
-          Clear Input
-        </button>
-      </div>
+
     </main>
     
     <footer class="footer" role="contentinfo">
@@ -161,12 +169,15 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  height: fit-content;
 }
 
+.input-header,
 .output-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: 2rem;
 }
 
 .label {
@@ -267,14 +278,8 @@ onMounted(() => {
   transform: translateY(-1px);
 }
 
-.clear-section {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-}
-
 .clear-btn {
-  padding: 0.75rem 1.5rem;
+  padding: 0.5rem 1rem;
   background: transparent;
   color: var(--text-color);
   border: 2px solid var(--border-color);
@@ -295,6 +300,11 @@ onMounted(() => {
   cursor: not-allowed;
 }
 
+.clear-btn.secondary {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
 .copy-btn.secondary {
   width: 100%;
   margin-top: 0.5rem;
@@ -303,6 +313,7 @@ onMounted(() => {
 @media (min-width: 768px) {
   .main {
     grid-template-columns: 1fr 1fr;
+    align-items: start;
   }
   
   .app {
